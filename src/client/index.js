@@ -9,6 +9,12 @@ import { weatherInfo } from './js/app'
 
 import './styles/style.scss'
 
+import img from '.media/01d.svg'
+
+window.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('icon').setAttribute('src', img)
+  })
+
 export {
     weatherInfo
    }

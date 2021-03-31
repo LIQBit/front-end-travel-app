@@ -79,7 +79,7 @@ const updateUI = async () => {
         document.getElementById('temp').innerHTML = `Current Temperature: ${allData.temperature}`;
         document.getElementById('content').innerHTML = `I'm feeling: ${allData.feelings}`;
         document.getElementById('name').innerHTML = `Location: ${allData.name}`;
-        document.getElementById('icon').innerHTML = `<img src="openweathermap/${allData.icon}.svg" alt="weather icon"/>`;
+        document.getElementById('icon').innerHTML = `<img src="./src/client/media/openweathermap/${allData.icon}.svg" alt="weather icon"/>`;
     } catch(error) {
         console.log("error", error);
     }

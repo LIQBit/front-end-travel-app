@@ -25,14 +25,15 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/i,
+                test: ///([a-z] [0-9] {2} [a-z])\.(svg)$/i,
+                /\.(png|jpe?g|gif|svg)$/i,
                 use: [
                     {
                         loader: "file-loader",
                         options: {
-                            name: '[path][name].[ext]',
-                            outputPath: 'img/',
-                            publicPath: 'img/'
+                            name: '[name].[ext]',
+                            outputPath: 'assets/icons',
+                            //publicPath: 'assets/icons'
                         },
                     }
                 ]  

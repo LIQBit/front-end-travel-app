@@ -9,12 +9,17 @@ import { weatherInfo } from './js/app'
 
 import './styles/style.scss'
 
-import img from '.media/01d.svg'
+//import Img from "./media/openweathermap/04n.svg"
 
-window.addEventListener('DOMContentLoaded',function(){
-    document.getElementById('icon').setAttribute('src', img)
-  })
+// Loading weather icons
+function importAll(r) {
+  return r.keys().map(r);
+}
+importAll(require.context("./media/openweathermap", false, /\.(svg)$/));
 
-export {
-    weatherInfo
-   }
+
+//window.addEventListener('DOMContentLoaded',function(){
+  //  document.getElementById('icon').setAttribute('src', "icons/${allData.icon}.svg")
+  //})
+
+export {weatherInfo}

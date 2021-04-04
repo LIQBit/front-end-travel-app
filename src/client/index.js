@@ -1,4 +1,4 @@
-import { weatherInfo } from './js/app'
+import { cityInfo } from './js/app'
 
 
 //console.log(checkForName);
@@ -22,4 +22,4 @@ importAll(require.context("./media/openweathermap", false, /\.(svg)$/));
   //  document.getElementById('icon').setAttribute('src', "icons/${allData.icon}.svg")
   //})
 
-export {weatherInfo}
+export {cityInfo}

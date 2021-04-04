@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -29,17 +29,28 @@ app.get('/all', (req, res) => {
     
 });
 
-// post route
+// geonames post route
 app.post('/addData', (req, res) => {
     let data = req.body;
-    projectData['temperature'] = data.temperature;
-    projectData['feelings'] = data.feelings;
-    projectData['date'] = data.date;
-    projectData['name'] = data.name;
-    projectData['icon'] = data.icon;
+    newEntry = {
+        cityname: req.body.cityname,
+        country: req.body.country,
+    }
+    projectData.push(newEntry)
     res.send(projectData);
     
 });
+
+ //pixabay post route
+app.post('/pixabay', (req, res) => {
+    let data = req.body;
+    pixabayEntry = {
+        image: req.body.image
+    }
+    projectData.push(pixabayEntry);
+    console.log('pixabay entry is...', projectData)
+    res.send(projectData);
+})
 
 
 // Setup Server

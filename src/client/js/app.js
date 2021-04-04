@@ -1,41 +1,57 @@
 /* Global Variables */
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?q=';
-const apiKey = '&units=metric&appid=99c60259cdec10f270676338ff10cb13';
-
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+const geonamesKey = 'ler2021';
+const pixabayKey = '21000408-62861fbb824850d2b9a62abbd'
 
 // function to execute when 'generate' is clicked
-document.getElementById('generate').addEventListener('click', weatherInfo);
+document.getElementById('generate').addEventListener('click', cityInfo);
 
-// Callback function
-function weatherInfo() {
-    const zipCode = document.getElementById('zip').value;
-    const feelings = document.getElementById('feelings').value;
-    retrieveWeatherData(baseURL, zipCode, apiKey)
-    
+// Callback function to perform action
+function cityInfo() {
+    const city = document.getElementById('cityName').value;
+    retrieveCityData(city)
         .then((data) => {
             console.log('data', data);
-            
-            postData('/addData', {name: data.name,
-                                  feelings: feelings,
-                                  date: newDate,
-                                  temperature: data.main.temp,
-                                  icon: data.weather[0].icon,
-                                  localtime: data.timezone}
-                                   )
-            .then((data) => {
-                updateUI()
+            // call the postData function with information to post to the url
+            postData('/addData', {cityname: data.geonames[0].name,
+                                  country: data.geonames[0].countryName
+            })
+            .then(() => {
+                pixabayImages(city)
+                .then((data) => {
+                    console.log('pixabay data', data)
+                    postData('/addData', {
+                        image: data.hits[0].webformatURL
+                    })
+                })
+                .then((data) => {
+                    updateUI()
+                })
             })
         })
+        
+
+        
 };
 
-// GET function for weather data from API
+// GET function for city name data from geonames API
 
-const retrieveWeatherData = async (baseURL, zipCode, apiKey) => {
-    
-    const res = await fetch(baseURL+zipCode+apiKey);
+const retrieveCityData = async (city) => {
+    const geonamesURL = `http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${geonamesKey}`;
+    const res = await fetch(geonamesURL);
+    try {
+        const data = await res.json();
+        return data;
+    }catch(error) {
+        console.log("error", error);
+    }
+
+};
+
+// GET function for pixabay API
+
+const pixabayImages = async (city) => {
+    const pixabayURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${city}&image_type=photo`;
+    const res = await fetch(pixabayURL);
     try {
         const data = await res.json();
         return data;
@@ -77,13 +93,13 @@ const updateUI = async () => {
         console.log("alldata", allData);
         document.getElementById('date').innerHTML = `Date: ${allData.date}`;
         document.getElementById('temp').innerHTML = `Current Temperature: ${allData.temperature}`;
-        document.getElementById('content').innerHTML = `I'm feeling: ${allData.feelings}`;
-        document.getElementById('name').innerHTML = `Location: ${allData.name}`;
-        document.getElementById('icon').innerHTML = `<img src="assets/icons/${allData.icon}.svg" alt="weather icon"/>`;
+        document.getElementById('country').innerHTML = `Country: ${allData[0].country}`;
+        document.getElementById('theCity').innerHTML = `City name: ${allData[0].cityname}`;
+        document.getElementById('image').innerHTML = `<img src="assets/icons/${allData[allData.length - 1].image}>`;
     } catch(error) {
         console.log("error", error);
     }
 };
 
-export { weatherInfo }
+export { cityInfo }
 

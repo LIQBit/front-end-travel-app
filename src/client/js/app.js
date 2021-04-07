@@ -13,7 +13,7 @@ function cityInfo() {
         .then((data) => {
             console.log('data', data);
             // call the postData function with information to post to the url
-            postData('http://localhost:8000/addData', {
+            postData('http://localhost:8001/addData', {
                 cityname: data.geonames[0].name,
                 country: data.geonames[0].countryName
             })
@@ -21,18 +21,26 @@ function cityInfo() {
                 pixabayImages(city)
                 .then((data) => {
                     console.log('pixabay data', data)
-                    postData('http://localhost:8000/pixabay', {
+                    postData('http://localhost:8001/pixabay', {
                         image: data.hits[0].webformatURL
                     })
-                    .then((data) => {
-                        updateUI();
-                    });
+                    .then(() => {
+                        getWeather(city)
+                        .then((data) => {
+                            console.log('getweather data', data.data[0].app_max_temp)
+                            postData('http://localhost:8001/weatherbit', {
+                                high: data.data[0].app_max_temp,
+                                low: data.data[0].app_min_temp
+
+                            })
+                            .then((data) => {
+                                updateUI();
+                            });
+                        })
+                    })
                 })
             })
-        })
-        
-
-        
+        })      
 };
 
 // GET function for city name data from geonames API
@@ -64,7 +72,7 @@ const pixabayImages = async (city) => {
 
 };
 
-// GET function for weatherbit API
+// GET function for pixabay API
 
 const getWeather = async (city) => {
     const getWeatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${weatherbitKey}`;
@@ -109,11 +117,11 @@ const updateUI = async () => {
     try{
         const allData = await request.json();
         console.log("alldata is...", allData);
-        document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-        document.getElementById('temp').innerHTML = `Current Temperature: ${allData.temperature}`;
-        document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 2].country}`;
-        document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 2].cityname}`;
-        document.getElementById('icon').innerHTML = `<img src="${allData[allData.length - 1].image}"/>`;
+        document.getElementById('date').innerHTML = `Today's min temp: ${allData[allData.length - 1].low}`;
+        document.getElementById('temp').innerHTML = `Today's max temp: ${allData[allData.length - 1].high}`;
+        document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 3].country}`;
+        document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 3].cityname}`;
+        document.getElementById('icon').innerHTML = `<img src="${allData[allData.length - 2].image}"/>`;
     } catch(error) {
         console.log("error", error);
     }

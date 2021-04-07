@@ -55,18 +55,19 @@ app.post('/pixabay', (req, res) => {
  //weatherbit post route
  app.post('/weatherbit', (req, res) => {
     let data = req.body;
+    console.log('checking weatherbit server side data', req.body.high)
     weatherbitEntry = {
-        
+        high: req.body.high,
+        low: req.body.low   
     }
     projectData.push(weatherbitEntry);
-    console.log('pixabay entry is...', projectData)
     res.send(projectData);
 })
 
 
 // Setup Server
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 const server = app.listen(port, ()=> {
     console.log(`Running on localhost: ${port}`)

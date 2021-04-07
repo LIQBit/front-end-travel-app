@@ -52,6 +52,17 @@ app.post('/pixabay', (req, res) => {
     res.send(projectData);
 })
 
+ //weatherbit post route
+ app.post('/weatherbit', (req, res) => {
+    let data = req.body;
+    weatherbitEntry = {
+        
+    }
+    projectData.push(weatherbitEntry);
+    console.log('pixabay entry is...', projectData)
+    res.send(projectData);
+})
+
 
 // Setup Server
 

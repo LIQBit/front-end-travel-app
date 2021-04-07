@@ -26,7 +26,7 @@ module.exports = {
             },
             {
                 test: ///([a-z] [0-9] {2} [a-z])\.(svg)$/i,
-                /\.(png|jpe?g|gif|svg)$/i,
+                /\.(png|jpg|gif|svg)$/i,
                 use: [
                     {
                         loader: "file-loader",

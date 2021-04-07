@@ -1,6 +1,7 @@
 /* Global Variables */
 const geonamesKey = 'ler2021';
-const pixabayKey = '21000408-62861fbb824850d2b9a62abbd'
+const pixabayKey = '21000408-62861fbb824850d2b9a62abbd';
+const weatherbitKey = '152d8e678c9d4bbb8cd2a0e9dcc1e6ca';
 
 // function to execute when 'generate' is clicked
 document.getElementById('generate').addEventListener('click', cityInfo);
@@ -12,19 +13,20 @@ function cityInfo() {
         .then((data) => {
             console.log('data', data);
             // call the postData function with information to post to the url
-            postData('/addData', {cityname: data.geonames[0].name,
-                                  country: data.geonames[0].countryName
+            postData('http://localhost:8000/addData', {
+                cityname: data.geonames[0].name,
+                country: data.geonames[0].countryName
             })
             .then(() => {
                 pixabayImages(city)
                 .then((data) => {
                     console.log('pixabay data', data)
-                    postData('/addData', {
+                    postData('http://localhost:8000/pixabay', {
                         image: data.hits[0].webformatURL
                     })
-                })
-                .then((data) => {
-                    updateUI()
+                    .then((data) => {
+                        updateUI();
+                    });
                 })
             })
         })
@@ -51,7 +53,23 @@ const retrieveCityData = async (city) => {
 
 const pixabayImages = async (city) => {
     const pixabayURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${city}&image_type=photo`;
+    console.log('check url', pixabayURL)
     const res = await fetch(pixabayURL);
+    try {
+        const data = await res.json();
+        return data;
+    }catch(error) {
+        console.log("error", error);
+    }
+
+};
+
+// GET function for weatherbit API
+
+const getWeather = async (city) => {
+    const getWeatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${weatherbitKey}`;
+    console.log('check url', getWeatherURL)
+    const res = await fetch(getWeatherURL);
     try {
         const data = await res.json();
         return data;
@@ -90,12 +108,12 @@ const updateUI = async () => {
 
     try{
         const allData = await request.json();
-        console.log("alldata", allData);
+        console.log("alldata is...", allData);
         document.getElementById('date').innerHTML = `Date: ${allData.date}`;
         document.getElementById('temp').innerHTML = `Current Temperature: ${allData.temperature}`;
-        document.getElementById('country').innerHTML = `Country: ${allData[0].country}`;
-        document.getElementById('theCity').innerHTML = `City name: ${allData[0].cityname}`;
-        document.getElementById('image').innerHTML = `<img src="assets/icons/${allData[allData.length - 1].image}>`;
+        document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 2].country}`;
+        document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 2].cityname}`;
+        document.getElementById('icon').innerHTML = `<img src="${allData[allData.length - 1].image}"/>`;
     } catch(error) {
         console.log("error", error);
     }

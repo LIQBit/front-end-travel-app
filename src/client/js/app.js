@@ -27,11 +27,11 @@ function cityInfo() {
                     .then(() => {
                         getWeather(city)
                         .then((data) => {
-                            console.log('getweather data', data.data[0].app_max_temp)
+                            console.log('getweather data', data.data[0].weather.description)
                             postData('http://localhost:8001/weatherbit', {
                                 high: data.data[0].app_max_temp,
-                                low: data.data[0].app_min_temp
-
+                                low: data.data[0].app_min_temp,
+                                condition: data.data[0].weather.description
                             })
                             .then((data) => {
                                 updateUI();
@@ -112,13 +112,14 @@ const postData = async (url = '', data = {})=>{
 // update UI
 
 const updateUI = async () => {
-    const request = await fetch('/all');
+    const request = await fetch('http://localhost:8001/all');
 
     try{
         const allData = await request.json();
         console.log("alldata is...", allData);
-        document.getElementById('date').innerHTML = `Today's min temp: ${allData[allData.length - 1].low}`;
+        document.getElementById('min').innerHTML = `Today's min temp: ${allData[allData.length - 1].low}`;
         document.getElementById('temp').innerHTML = `Today's max temp: ${allData[allData.length - 1].high}`;
+        document.getElementById('condition').innerHTML = `Current condition: ${allData[allData.length - 1].condition}`;
         document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 3].country}`;
         document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 3].cityname}`;
         document.getElementById('icon').innerHTML = `<img src="${allData[allData.length - 2].image}"/>`;

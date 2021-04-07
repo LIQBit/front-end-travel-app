@@ -55,10 +55,11 @@ app.post('/pixabay', (req, res) => {
  //weatherbit post route
  app.post('/weatherbit', (req, res) => {
     let data = req.body;
-    console.log('checking weatherbit server side data', req.body.high)
+    console.log('checking weatherbit server side data', req.body.description)
     weatherbitEntry = {
         high: req.body.high,
-        low: req.body.low   
+        low: req.body.low,
+        condition: req.body.condition   
     }
     projectData.push(weatherbitEntry);
     res.send(projectData);

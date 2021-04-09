@@ -2,6 +2,8 @@
 const geonamesKey = 'ler2021';
 const pixabayKey = '21000408-62861fbb824850d2b9a62abbd';
 const weatherbitKey = '152d8e678c9d4bbb8cd2a0e9dcc1e6ca';
+//const restCountriesURL = 'https://restcountries.eu/rest/v2/all';
+
 
 // function to execute when 'generate' is clicked
 document.getElementById('generate').addEventListener('click', cityInfo);
@@ -9,9 +11,24 @@ document.getElementById('generate').addEventListener('click', cityInfo);
 // Callback function to perform action
 function cityInfo() {
     const city = document.getElementById('cityName').value;
-    retrieveCityData(city)
+    const arrivalDate = document.getElementById('input-date').value;
+    console.log('arrival date', arrivalDate)
+    //Countdown & date of trip
+    let d = new Date();
+    let daysLeft = Math.floor(
+        (new Date(arrivalDate).getTime() - d.getTime()) / (1000*3600*24)
+    );
+    console.log('days left...', daysLeft)
+    if (daysLeft > 16) {
+        //document.getElementById('min').innerHTML = "";
+        //document.getElementById('temp').innerHTML = "";
+        //document.getElementById('cityImage').innerHTML = "";
+        document.getElementById('condition').innerHTML = `Sorry, that's too far ahead for any info.`; 
+    } else {
+        retrieveCityData(city)
         .then((data) => {
             console.log('data', data);
+            let country = data.geonames[0].countryCode;
             // call the postData function with information to post to the url
             postData('http://localhost:8001/addData', {
                 cityname: data.geonames[0].name,
@@ -27,11 +44,28 @@ function cityInfo() {
                     .then(() => {
                         getWeather(city)
                         .then((data) => {
-                            console.log('getweather data', data.data[0].weather.description)
+                            document.getElementById('days-until').innerHTML = `Your trip is in ${daysLeft + 1} days`;
+                            console.log('data', data)
+                            console.log('getweather arrival data', daysLeft)
                             postData('http://localhost:8001/weatherbit', {
                                 high: data.data[0].app_max_temp,
                                 low: data.data[0].app_min_temp,
-                                condition: data.data[0].weather.description
+                                condition: data.data[0].weather.description,
+                                arrival: data.data[1 + daysLeft].weather.description,
+                                icon: data.data[0].weather.icon,
+                                arrivalHigh: data.data[1 + daysLeft].max_temp,
+                                arrivalLow: data.data[1 + daysLeft].min_temp
+                            })
+                            .then(() => {
+                                restCountries(country)
+                                .then((data) => {
+                                    console.log('restcountries data', data.name)
+                                    postData('http://localhost:8001/restcountries', {
+                                        country: data.name,
+                                        capital: data.capital,
+                                        language: data.languages[0].name
+                                    })
+                                })
                             })
                             .then((data) => {
                                 updateUI();
@@ -40,8 +74,11 @@ function cityInfo() {
                     })
                 })
             })
-        })      
+        }) 
+             
+    };
 };
+    
 
 // GET function for city name data from geonames API
 
@@ -87,6 +124,21 @@ const getWeather = async (city) => {
 
 };
 
+// GET function for Rest Countries API
+
+const restCountries = async (country) => {
+    const restCountriesURL = `https://restcountries.eu/rest/v2/alpha/${country}`;
+    console.log('check url', restCountriesURL)
+    const res = await fetch(restCountriesURL);
+    try {
+        const data = await res.json();
+        return data;
+    }catch(error) {
+        console.log("error", error);
+    }
+
+};
+
 
 // POST data function
 
@@ -113,16 +165,21 @@ const postData = async (url = '', data = {})=>{
 
 const updateUI = async () => {
     const request = await fetch('http://localhost:8001/all');
-
     try{
         const allData = await request.json();
+        let icon = allData[allData.length - 1].icon;
         console.log("alldata is...", allData);
-        document.getElementById('min').innerHTML = `Today's min temp: ${allData[allData.length - 1].low}`;
-        document.getElementById('temp').innerHTML = `Today's max temp: ${allData[allData.length - 1].high}`;
-        document.getElementById('condition').innerHTML = `Current condition: ${allData[allData.length - 1].condition}`;
+        document.getElementById('min').innerHTML = `Expected low: ${allData[allData.length - 1].arrivalLow}°C`;
+        document.getElementById('temp').innerHTML = `Expected high: ${allData[allData.length - 1].arrivalHigh}°C`;
+        document.getElementById('condition').innerHTML = `Weather now`;
+        document.getElementById('arrival-condition').innerHTML = `Weather on arrival: ${allData[allData.length - 1].arrival}`;
         document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 3].country}`;
         document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 3].cityname}`;
-        document.getElementById('icon').innerHTML = `<img src="${allData[allData.length - 2].image}"/>`;
+        document.getElementById('cityImage').innerHTML = `<img src="${allData[allData.length - 2].image}"/>`;
+        document.getElementById('icon').innerHTML = `<img src="assets/icons/${icon}.svg" id="weather-icon" alt="weather icon"/>`;
+        document.getElementById('todays-temps').innerHTML = `High: ${allData[allData.length - 1].high}°C Low: ${allData[allData.length - 1].low}°C`;
+        document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 4].country}`;
+        document.getElementById('capital').innerHTML = `Capital city: ${allData[allData.length - 4].capital}`;
     } catch(error) {
         console.log("error", error);
     }

@@ -6,41 +6,47 @@ $tertiary-color: blue;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Quattrocento Sans', sans-serif;
+  font-family: 'Oswald', sans-serif;
   // border: 1px solid red;
 }
 
 body {
   position: relative;
+  color: white;
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: #6441a5; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #2a0845,
-    #6441a5
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #2a0845,
-    #6441a5
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: black;
+  //background: linear-gradient(to bottom right, rgb(44, 90, 216), rgb(219, 211, 139)); /* fallback for old browsers */
+  //background: -webkit-linear-gradient(to bottom right, rgb(44, 90, 216), rgb(219, 211, 139)); /* Chrome 10-25, Safari 5.1-6 */
+  //background: linear-gradient(to right,rgb(44, 90, 216), rgb(219, 211, 139)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  #date-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+    font-weight: 100;
+    margin-top: 20px;
+    margin-left: 80px;
+    margin-right: 70px;
+    padding-bottom: 10px;
+  }
 }
 
 // Header
-header {
+.headline {
   display: flex;
   justify-content: space-around;
   min-height: 20%;
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: $primary-color;
-  border: 1px solid red;
+  //padding: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  font-size: 4.5em;
+  //background-color: $primary-color;
+  //border: 1px solid red;
 }
 
 // Input
@@ -67,14 +73,38 @@ header {
   align-items: center;
 }
 
-.city-entered,
-.date {
-  margin: 1rem;
+#input-date {
+  font-size: 1.5em;
+  padding-left: 50px;
+  color: dimgray;
 }
 
 input {
-  height: 2rem;
-  width: 10rem;
+    //background: rgba(255, 255, 255, 0);
+    text-align: center;
+    //color: white;
+    font-size: 1.5em;
+    font-family: 'Oswald', sans-serif;
+    width: 90%;
+    height: 60px;
+    border: black 1px;
+    border-radius: 30px;
+    margin-left: 18px;
+    }
+
+
+
+#date-select {
+    background: rgba(255, 255, 255, 0);
+    margin-top: 60px;
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    font-family: 'Oswald', sans-serif;
+    width: 98%;
+    height: 45px;
+    border: black 1px;
+    border-radius: 30px;
 }
 
 // Article
@@ -100,20 +130,97 @@ article {
   min-height: 10%;
 }
 
-.info-list {
-  padding: 1rem;
-  margin: 1rem;
+ul {
+    list-style-type: none;
 }
 
-.info-list li {
-  padding: 0.5rem;
+.result {
+    font-size: 1.5em;
+    line-height: 0.6%;
 }
 
-img {
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+#results {
+    position: relative;
+    text-align: left;
+    ul {
+        position: absolute;
+        top: 6%;
+        left: 5%;
+        padding: 2px;
+        line-height: 1.6;
+        font-size: 1.6em;
+        //transform: translate(-50%, -50%)
+    }
+}
+
+
+
+#city-pic {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 35px;
   width: 100%;
+  height: 450px;
   max-height: 40%;
+  opacity: 0.5;
+  outline: none;
+}
+
+#flag-pic {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 35px;
+  width: 100%;
+  height: 250px;
+  max-height: 40%;
+  outline: none;
+}
+
+#condition{
+  margin-left: 105px;
+  margin-right: 0px;
+}
+
+#icon {
+  height: 20%;
+  width: 100%;
+}
+
+#weather-icon {
+  height: 50%;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+#entryHolder {
+    margin-bottom: 100px;
+}
+
+#todays-temps {
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+}
+
+#country-info {
+  font-size: 1.5em;
+  margin-left: 30px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.info {
+  font-size: 1.2em;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 20px;
+
 }
 
 // Button
@@ -122,6 +229,9 @@ button {
   height: 3rem;
   padding: 0.5rem;
   margin: 1rem;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 60px;
   background-color: $primary-color;
   border-radius: 900px;
   transition: transform 0.05s ease-in;

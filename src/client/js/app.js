@@ -59,17 +59,21 @@ function cityInfo() {
                             .then(() => {
                                 restCountries(country)
                                 .then((data) => {
-                                    console.log('restcountries data', data.name)
+                                    console.log('restcountries data', data.languages[0].name)
                                     postData('http://localhost:8001/restcountries', {
                                         country: data.name,
                                         capital: data.capital,
-                                        language: data.languages[0].name
+                                        language: data.languages[0].name,
+                                        //otherLanguage: data.languages[1].name,
+                                        currency: data.currencies[0].name,
+                                        flag: data.flag
                                     })
+                                    .then((data) => {
+                                        updateUI();
+                                    });
                                 })
                             })
-                            .then((data) => {
-                                updateUI();
-                            });
+                            
                         })
                     })
                 })
@@ -167,19 +171,22 @@ const updateUI = async () => {
     const request = await fetch('http://localhost:8001/all');
     try{
         const allData = await request.json();
-        let icon = allData[allData.length - 1].icon;
+        let icon = allData[allData.length - 2].icon;
         console.log("alldata is...", allData);
-        document.getElementById('min').innerHTML = `Expected low: ${allData[allData.length - 1].arrivalLow}°C`;
-        document.getElementById('temp').innerHTML = `Expected high: ${allData[allData.length - 1].arrivalHigh}°C`;
+        document.getElementById('min').innerHTML = `Expected low: ${allData[allData.length - 2].arrivalLow}°C`;
+        document.getElementById('temp').innerHTML = `Expected high: ${allData[allData.length - 2].arrivalHigh}°C`;
         document.getElementById('condition').innerHTML = `Weather now`;
-        document.getElementById('arrival-condition').innerHTML = `Weather on arrival: ${allData[allData.length - 1].arrival}`;
-        document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 3].country}`;
-        document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 3].cityname}`;
-        document.getElementById('cityImage').innerHTML = `<img src="${allData[allData.length - 2].image}"/>`;
+        document.getElementById('arrival-condition').innerHTML = `Weather on arrival: ${allData[allData.length - 2].arrival}`;
+        document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 4].country}`;
+        document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 4].cityname}`;
+        document.getElementById('cityImage').innerHTML = `<img src="${allData[allData.length - 3].image}" id = "city-pic"/>`;
         document.getElementById('icon').innerHTML = `<img src="assets/icons/${icon}.svg" id="weather-icon" alt="weather icon"/>`;
-        document.getElementById('todays-temps').innerHTML = `High: ${allData[allData.length - 1].high}°C Low: ${allData[allData.length - 1].low}°C`;
-        document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 4].country}`;
-        document.getElementById('capital').innerHTML = `Capital city: ${allData[allData.length - 4].capital}`;
+        document.getElementById('todays-temps').innerHTML = `High: ${allData[allData.length - 2].high}°C Low: ${allData[allData.length - 2].low}°C`;
+        document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 1].country}`;
+        document.getElementById('capital').innerHTML = `Capital city: ${allData[allData.length - 1].capital}`;
+        document.getElementById('language').innerHTML = `Language: ${allData[allData.length - 1].language}`;
+        document.getElementById('currency').innerHTML = `Currency: ${allData[allData.length - 1].currency}`;
+        document.getElementById('flag').innerHTML = `<img src ="${allData[allData.length - 1].flag}" id ="flag-pic"/>`;
     } catch(error) {
         console.log("error", error);
     }

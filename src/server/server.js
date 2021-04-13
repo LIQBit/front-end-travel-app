@@ -55,16 +55,37 @@ app.post('/pixabay', (req, res) => {
  //weatherbit post route
  app.post('/weatherbit', (req, res) => {
     let data = req.body;
-    console.log('checking weatherbit server side data', req.body.description)
+    console.log('checking weatherbit server side data', req.body.icon)
     weatherbitEntry = {
         high: req.body.high,
         low: req.body.low,
-        condition: req.body.condition   
+        condition: req.body.condition,
+        arrival: req.body.arrival,
+        icon: req.body.icon,
+        arrivalHigh: req.body.arrivalHigh,
+        arrivalLow: req.body.arrivalLow
     }
     projectData.push(weatherbitEntry);
     res.send(projectData);
 })
 
+
+//Rest Countries post route
+app.post('/restcountries', (req, res) => {
+    let data = req.body;
+    console.log('checking restcountries server side data', req.body.currency)
+    restCountriesEntry = {
+        country: req.body.country,
+        capital: req.body.capital,
+        language: req.body.language,
+        //otherLanguage: req.body.otherLanguage,
+        currency: req.body.currency,
+        flag: req.body.flag
+
+    }
+    projectData.push(restCountriesEntry);
+    res.send(projectData);
+})
 
 // Setup Server
 

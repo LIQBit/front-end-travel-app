@@ -182,7 +182,7 @@ const updateUI = async () => {
         document.getElementById('cityImage').innerHTML = `<img src="${allData[allData.length - 3].image}" id = "city-pic"/>`;
         document.getElementById('icon').innerHTML = `<img src="assets/icons/${icon}.svg" id="weather-icon" alt="weather icon"/>`;
         document.getElementById('todays-temps').innerHTML = `High: ${allData[allData.length - 2].high}°C Low: ${allData[allData.length - 2].low}°C`;
-        document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 1].country}`;
+        //document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 1].country}`;
         document.getElementById('capital').innerHTML = `Capital city: ${allData[allData.length - 1].capital}`;
         document.getElementById('language').innerHTML = `Language: ${allData[allData.length - 1].language}`;
         document.getElementById('currency').innerHTML = `Currency: ${allData[allData.length - 1].currency}`;

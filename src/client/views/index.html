@@ -8,47 +8,53 @@
 <!--<link rel="stylesheet" href="style.css">-->
 </head>
  <body>
-<div id = "app">
+
   <div class ="headline">
     Travel Buddy
   </div>
-  <div class ="holder zip" id="zipholder">
-    
+  <div class id="form">
     <input type="text" id="cityName" placeholder="Where do do you want to go?">
-  </div>
-  <div class ="holder feel" id="feelholder">
-  
-    <h3 id = "date-title">When do you want to go?</h3>
     <input type="date" name="date" id="input-date" class="date" min="0" required>
   </div>
+
   <div id="results">
-    <div id="cityImage"></div>
+    <div id="info-holder">
+      <div id="cityImage"></div>
     
-    <ul>
-      <li id = "theCity"></li>
-      <li id="country"></li>
-      
-      <li id = "arrival-condition"></li>
-      <li id = "temp"></li>
-      <li id = "min"></li>
-      <li id = "days-until"></li>
-    </ul>
+      <ul>
+        <li id = "theCity"></li>
+        <li id="country"></li>
+        <li id="capital"></li>
+        <li id="language"></li>
+        <li id="currency"></li>
+        <li id = "arrival-condition"></li>
+        <li id = "temp"></li>
+        <li id = "min"></li>
+        <li id = "days-until"></li>
+      </ul>
+
+    </div>
 
     <div id="other-info">
-      <h1 id="condition"></h1>
+      <div id="condition-holder">
+        <h1 id="condition"></h1>
+      </div>
+
       <div id="icon"></div>
-      <h2 id="todays-temps"></h2>
+
+      <div id="temps-holder">
+        <h2 id="todays-temps"></h2>
+      </div>
+      
       <h1 id="country-info"></h1>
-      <h4 class="info" id="capital"></h4>
-      <h4 class="info" id="language"></h4>
-      <h4 class="info" id="currency"></h4>
+      
       <div id="flag"></div>
     </div>
    
       
       
     
-  </div>
+  
   
   </div>
   <button id="generate" type = "submit"> Generate </button>

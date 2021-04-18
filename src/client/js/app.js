@@ -175,7 +175,7 @@ const updateUI = async () => {
         console.log("alldata is...", allData);
         document.getElementById('min').innerHTML = `Expected low: ${allData[allData.length - 2].arrivalLow}°C`;
         document.getElementById('temp').innerHTML = `Expected high: ${allData[allData.length - 2].arrivalHigh}°C`;
-        document.getElementById('condition').innerHTML = `Weather now`;
+        document.getElementById('condition').innerHTML = `Weather now in ${allData[allData.length - 4].cityname}`;
         document.getElementById('arrival-condition').innerHTML = `Weather on arrival: ${allData[allData.length - 2].arrival}`;
         document.getElementById('country').innerHTML = `Country: ${allData[allData.length - 4].country}`;
         document.getElementById('theCity').innerHTML = `City name: ${allData[allData.length - 4].cityname}`;

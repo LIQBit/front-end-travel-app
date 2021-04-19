@@ -2,8 +2,6 @@
 const geonamesKey = 'ler2021';
 const pixabayKey = '21000408-62861fbb824850d2b9a62abbd';
 const weatherbitKey = '152d8e678c9d4bbb8cd2a0e9dcc1e6ca';
-//const restCountriesURL = 'https://restcountries.eu/rest/v2/all';
-
 
 // function to execute when 'generate' is clicked
 document.getElementById('generate').addEventListener('click', cityInfo);
@@ -20,9 +18,6 @@ function cityInfo() {
     );
     console.log('days left...', daysLeft)
     if (daysLeft > 16) {
-        //document.getElementById('min').innerHTML = "";
-        //document.getElementById('temp').innerHTML = "";
-        //document.getElementById('cityImage').innerHTML = "";
         document.getElementById('condition').innerHTML = `Sorry, that's too far ahead for any info.`; 
     } else {
         retrieveCityData(city)
@@ -182,7 +177,6 @@ const updateUI = async () => {
         document.getElementById('cityImage').innerHTML = `<img src="${allData[allData.length - 3].image}" id = "city-pic"/>`;
         document.getElementById('icon').innerHTML = `<img src="assets/icons/${icon}.svg" id="weather-icon" alt="weather icon"/>`;
         document.getElementById('todays-temps').innerHTML = `High: ${allData[allData.length - 2].high}°C Low: ${allData[allData.length - 2].low}°C`;
-        //document.getElementById('country-info').innerHTML = `Information About ${allData[allData.length - 1].country}`;
         document.getElementById('capital').innerHTML = `Capital city: ${allData[allData.length - 1].capital}`;
         document.getElementById('language').innerHTML = `Language: ${allData[allData.length - 1].language}`;
         document.getElementById('currency').innerHTML = `Currency: ${allData[allData.length - 1].currency}`;

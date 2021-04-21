@@ -4,78 +4,100 @@ const pixabayKey = '21000408-62861fbb824850d2b9a62abbd';
 const weatherbitKey = '152d8e678c9d4bbb8cd2a0e9dcc1e6ca';
 
 // function to execute when 'generate' is clicked
-document.getElementById('generate').addEventListener('click', cityInfo);
+
+const goButton = document.getElementById('generate');
+
+if (goButton != null) {
+    goButton.addEventListener('click', cityInfo)
+}
+
+//document.getElementById('generate').addEventListener('click', cityInfo);
 
 // Callback function to perform action
+
 function cityInfo() {
+
     const city = document.getElementById('cityName').value;
     const arrivalDate = document.getElementById('input-date').value;
-    console.log('arrival date', arrivalDate)
+    console.log('is arrival date a number?', isNaN(arrivalDate))
     //Countdown & date of trip
     let d = new Date();
     let daysLeft = Math.floor(
         (new Date(arrivalDate).getTime() - d.getTime()) / (1000*3600*24)
     );
-    console.log('days left...', daysLeft)
-    if (daysLeft > 16) {
-        document.getElementById('condition').innerHTML = `Sorry, that's too far ahead for any info.`; 
-    } else {
-        retrieveCityData(city)
-        .then((data) => {
-            console.log('data', data);
-            let country = data.geonames[0].countryCode;
-            // call the postData function with information to post to the url
-            postData('http://localhost:8001/addData', {
-                cityname: data.geonames[0].name,
-                country: data.geonames[0].countryName
-            })
-            .then(() => {
-                pixabayImages(city)
-                .then((data) => {
-                    console.log('pixabay data', data)
-                    postData('http://localhost:8001/pixabay', {
-                        image: data.hits[0].webformatURL
-                    })
-                    .then(() => {
-                        getWeather(city)
-                        .then((data) => {
-                            document.getElementById('days-until').innerHTML = `Your trip is in ${daysLeft + 1} days`;
-                            console.log('data', data)
-                            console.log('getweather arrival data', daysLeft)
-                            postData('http://localhost:8001/weatherbit', {
-                                high: data.data[0].app_max_temp,
-                                low: data.data[0].app_min_temp,
-                                condition: data.data[0].weather.description,
-                                arrival: data.data[1 + daysLeft].weather.description,
-                                icon: data.data[0].weather.icon,
-                                arrivalHigh: data.data[1 + daysLeft].max_temp,
-                                arrivalLow: data.data[1 + daysLeft].min_temp
-                            })
-                            .then(() => {
-                                restCountries(country)
-                                .then((data) => {
-                                    console.log('restcountries data', data.languages[0].name)
-                                    postData('http://localhost:8001/restcountries', {
-                                        country: data.name,
-                                        capital: data.capital,
-                                        language: data.languages[0].name,
-                                        //otherLanguage: data.languages[1].name,
-                                        currency: data.currencies[0].name,
-                                        flag: data.flag
-                                    })
-                                    .then((data) => {
-                                        updateUI();
-                                    });
+    
+    try{
+        
+        if (daysLeft > 16) {
+            document.getElementById('condition').innerHTML = `Sorry, that's too far ahead for any info.`; 
+        }
+        if (isNaN(arrivalDate) == false){
+            document.getElementById('condition').innerHTML = `You didn't enter a date!`;
+        }
+         else if (city === '') {
+            document.getElementById('condition').innerHTML = `Please enter a city!`; 
+        } else {
+            retrieveCityData(city)
+            .then((data) => {
+                console.log('data', data);
+                let country = data.geonames[0].countryCode;
+                // call the postData function with information to post to the url
+                postData('http://localhost:8001/addData', {
+                    cityname: data.geonames[0].name,
+                    country: data.geonames[0].countryName
+                })
+                .then(() => {
+                    pixabayImages(city)
+                    .then((data) => {
+                        console.log('pixabay data', data)
+                        postData('http://localhost:8001/pixabay', {
+                            image: data.hits[0].webformatURL
+                        })
+                        .then(() => {
+                            getWeather(city)
+                            .then((data) => {
+                                document.getElementById('days-until').innerHTML = `Your trip is in ${daysLeft + 1} days`;
+                                console.log('data', data)
+                                console.log('getweather arrival data', daysLeft)
+                                postData('http://localhost:8001/weatherbit', {
+                                    high: data.data[0].app_max_temp,
+                                    low: data.data[0].app_min_temp,
+                                    condition: data.data[0].weather.description,
+                                    arrival: data.data[1 + daysLeft].weather.description,
+                                    icon: data.data[0].weather.icon,
+                                    arrivalHigh: data.data[1 + daysLeft].max_temp,
+                                    arrivalLow: data.data[1 + daysLeft].min_temp
                                 })
+                                .then(() => {
+                                    restCountries(country)
+                                    .then((data) => {
+                                        console.log('restcountries data', data.languages[0].name)
+                                        postData('http://localhost:8001/restcountries', {
+                                            country: data.name,
+                                            capital: data.capital,
+                                            language: data.languages[0].name,
+                                            //otherLanguage: data.languages[1].name,
+                                            currency: data.currencies[0].name,
+                                            flag: data.flag
+                                        })
+                                        .then((data) => {
+                                            updateUI();
+                                        });
+                                    })
+                                })
+                                
                             })
-                            
                         })
                     })
                 })
-            })
-        }) 
-             
-    };
+            }) 
+                 
+        };
+
+    } catch (error) {
+        console.log('error', error)
+    }
+  
 };
     
 

@@ -3,15 +3,12 @@ const geonamesKey = 'ler2021';
 const pixabayKey = '21000408-62861fbb824850d2b9a62abbd';
 const weatherbitKey = '152d8e678c9d4bbb8cd2a0e9dcc1e6ca';
 
-// function to execute when 'generate' is clicked
-
+// add Event Listener
 const goButton = document.getElementById('generate');
 
 if (goButton != null) {
     goButton.addEventListener('click', cityInfo)
 }
-
-//document.getElementById('generate').addEventListener('click', cityInfo);
 
 // Callback function to perform action
 
@@ -76,7 +73,6 @@ function cityInfo() {
                                             country: data.name,
                                             capital: data.capital,
                                             language: data.languages[0].name,
-                                            //otherLanguage: data.languages[1].name,
                                             currency: data.currencies[0].name,
                                             flag: data.flag
                                         })
@@ -159,7 +155,6 @@ const restCountries = async (country) => {
     }
 
 };
-
 
 // POST data function
 

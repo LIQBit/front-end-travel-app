@@ -17,3 +17,7 @@ The relevant packages and dependencies will be installed.
 **Necessary API Keys**
 
 In order for the app to function, you will need to obtain API keys from [Geonames](http://www.geonames.org/), [Weatherbit](https://www.weatherbit.io/), and [Pixabay](https://pixabay.com/api/docs/).
+
+**Resources**
+
+Base code was the Udacity Front-End Nanodegree Course's "NLP Project".

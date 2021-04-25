@@ -15,7 +15,7 @@ if (goButton != null) {
 function cityInfo() {
     const city = document.getElementById('cityName').value;
     const arrivalDate = document.getElementById('input-date').value;
-    console.log('is arrival date a number?', isNaN(arrivalDate))
+
     //Countdown & date of trip
     let d = new Date();
     let daysLeft = Math.floor(
@@ -54,7 +54,6 @@ function cityInfo() {
                             .then((data) => {
                                 document.getElementById('days-until').innerHTML = `Your trip is in ${daysLeft + 1} days`;
                                 console.log('data', data)
-                                console.log('getweather arrival data', daysLeft)
                                 postData('http://localhost:8001/weatherbit', {
                                     high: data.data[0].app_max_temp,
                                     low: data.data[0].app_min_temp,
@@ -67,7 +66,6 @@ function cityInfo() {
                                 .then(() => {
                                     restCountries(country)
                                     .then((data) => {
-                                        console.log('restcountries data', data.languages[0].name)
                                         postData('http://localhost:8001/restcountries', {
                                             country: data.name,
                                             capital: data.capital,

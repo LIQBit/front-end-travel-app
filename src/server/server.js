@@ -42,14 +42,12 @@ app.post('/pixabay', (req, res) => {
         image: req.body.image
     }
     projectData.push(pixabayEntry);
-    console.log('pixabay entry is...', projectData)
     res.send(projectData);
 })
 
  //weatherbit post route
  app.post('/weatherbit', (req, res) => {
     let data = req.body;
-    console.log('checking weatherbit server side data', req.body.icon)
     weatherbitEntry = {
         high: req.body.high,
         low: req.body.low,
@@ -67,15 +65,12 @@ app.post('/pixabay', (req, res) => {
 //Rest Countries post route
 app.post('/restcountries', (req, res) => {
     let data = req.body;
-    console.log('checking restcountries server side data', req.body.currency)
     restCountriesEntry = {
         country: req.body.country,
         capital: req.body.capital,
         language: req.body.language,
-        //otherLanguage: req.body.otherLanguage,
         currency: req.body.currency,
         flag: req.body.flag
-
     }
     projectData.push(restCountriesEntry);
     res.send(projectData);

@@ -13,7 +13,6 @@ if (goButton != null) {
 // Callback function to perform action
 
 function cityInfo() {
-
     const city = document.getElementById('cityName').value;
     const arrivalDate = document.getElementById('input-date').value;
     console.log('is arrival date a number?', isNaN(arrivalDate))
@@ -93,7 +92,6 @@ function cityInfo() {
     } catch (error) {
         console.log('error', error)
     }
-  
 };
     
 

@@ -18,7 +18,7 @@ app.use(express.static('dist'));
 
 
 // get route for all data
-app.get('/all', (req, res) => {
+app.get('/', (req, res) => {
     res.send(projectData);
     
 });

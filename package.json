@@ -6,8 +6,8 @@
         "start": "node src/server/server.js",
         "build-prod": "webpack --config webpack.prod.js",
         "build-dev": "webpack-dev-server  --config webpack.dev.js --open",
-        "test": "jest",
-        "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+        "test": "jest"
+        
     },
     "keywords": [],
     "author": "",

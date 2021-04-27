@@ -79,7 +79,7 @@ app.post('/restcountries', (req, res) => {
 // Setup Server
 
 //const port = process.env.PORT || 8001;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8001;
 
 const server = app.listen(port, ()=> {
     console.log(`Running on localhost: ${port}`)

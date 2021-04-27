@@ -38,7 +38,7 @@ function cityInfo() {
                 console.log('data', data);
                 let country = data.geonames[0].countryCode;
                 // call the postData function with information to post to the url
-                postData('http://localhost:8001/addData', {
+                postData('/addData', {
                     cityname: data.geonames[0].name,
                     country: data.geonames[0].countryName
                 })
@@ -46,7 +46,7 @@ function cityInfo() {
                     pixabayImages(city)
                     .then((data) => {
                         console.log('pixabay data', data)
-                        postData('http://localhost:8001/pixabay', {
+                        postData('/pixabay', {
                             image: data.hits[0].webformatURL
                         })
                         .then(() => {
@@ -54,7 +54,7 @@ function cityInfo() {
                             .then((data) => {
                                 document.getElementById('days-until').innerHTML = `Your trip is in ${daysLeft + 1} days`;
                                 console.log('data', data)
-                                postData('http://localhost:8001/weatherbit', {
+                                postData('/weatherbit', {
                                     high: data.data[0].app_max_temp,
                                     low: data.data[0].app_min_temp,
                                     condition: data.data[0].weather.description,
@@ -66,7 +66,7 @@ function cityInfo() {
                                 .then(() => {
                                     restCountries(country)
                                     .then((data) => {
-                                        postData('http://localhost:8001/restcountries', {
+                                        postData('restcountries', {
                                             country: data.name,
                                             capital: data.capital,
                                             language: data.languages[0].name,
@@ -176,7 +176,7 @@ const postData = async (url = '', data = {})=>{
 // update UI
 
 const updateUI = async () => {
-    const request = await fetch('http://localhost:8001/all');
+    const request = await fetch('/all');
     try{
         const allData = await request.json();
         let icon = allData[allData.length - 2].icon;

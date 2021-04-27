@@ -96,7 +96,7 @@ function cityInfo() {
 // GET function for city name data from geonames API
 
 const retrieveCityData = async (city) => {
-    const geonamesURL = `http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${geonamesKey}`;
+    const geonamesURL = `http://secure.geonames.org/searchJSON?q=${city}&maxRows=1&username=${geonamesKey}`;
     const res = await fetch(geonamesURL);
     try {
         const data = await res.json();

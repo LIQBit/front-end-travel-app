@@ -2,6 +2,9 @@
     "name": "example-project",
     "version": "1.0.0",
     "main": "index.js",
+    "engines": {
+        "node": "14.15.4"
+    },
     "scripts": {
         "start": "node src/server/server.js",
         "build-prod": "webpack --config webpack.prod.js",
@@ -38,8 +41,9 @@
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "sass-loader": "^10.1.1",
         "style-loader": "^2.0.0",
+        "supertest": "^6.1.3",
         "terser-webpack-plugin": "^1.4.5",
         "webpack-dev-server": "^3.11.2",
-        "workbox-webpack-plugin": "^6.1.2"
+        "workbox-webpack-plugin": "^6.1.5"
     }
 }

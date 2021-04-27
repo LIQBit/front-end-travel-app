@@ -3,60 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Weather Journal</title>
+<title>Travel Buddy</title>
 <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
-<!--<link rel="stylesheet" href="style.css">-->
 </head>
  <body>
-<div id = "app">
+
   <div class ="headline">
-    Weather Journal App
+    Travel Buddy
   </div>
-  <div class ="holder zip" id="zipholder">
+  <div class id="form">
+    <input type="text" id="cityName" placeholder="Where do do you want to go?">
+    <input type="date" name="date" id="input-date" class="date" min="0" required>
+  </div>
+
+  <div id="button-holder">
+    <button id="generate" type = "submit"> Go </button>
+  </div>
+
+  <div id="results">
+    <div id="info-holder">
+      <div id="cityImage"></div>
+      <div id="flag">
+      </div>
     
-    <input type="text" id="cityName" placeholder="Type the city you want to go to:">
-  </div>
-  <div class ="holder feel" id="feelholder">
-  
-    <textarea class= "myInput" id="feelings" placeholder="How are you feeling right now..." rows="9" cols="50"></textarea>
-    
-  </div>
-  <div class ="holder entry" id="">
-    <div class = "title"></div>
-    <div id = "entryHolder">
-      <div id = "theCity"></div>
-      <div id = "temp"></div>
-      <div id = "date"></div>
-      <div id="country"></div>
-      <div id="icon"></div>
+      <ul id="pic-text">
+        <li id ="theCity"></li>
+        
+        <li id = "arrival-condition"></li>
+        <li id = "temp"></li>
+        <li id = "min"></li>
+        <li id = "days-until"></li>
+      </ul>
+
+      <ul id="flag-text">
+          <li id="country"></li>
+          <li id="capital"></li>
+          <li id="language"></li>
+          <li id="currency"></li>
+      </ul>
+
     </div>
+
+    <div id="other-info">
+      <div id="condition-holder">
+        <h1 id="condition"></h1>
+      </div>
+
+      <div id="icon"></div>
+
+      <div id="temps-holder">
+        <h2 id="todays-temps"></h2>
+      </div>
+      
+      <h1 id="country-info"></h1>
+      
+      
+    </div>
+   
+      
+      
+    
+  
+  
   </div>
-  <button id="generate" type = "submit"> Generate </button>
-  </div>
-<!--<script src="app.js" type="text/javascript"></script>-->
+
+  <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+        });
+    }
+  </script>
 
 
 </body>
 </html>
 
-<!--MIT License (Weather Icons)
-
-Copyright (c) 2020-2021 Bas Milius
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.-->

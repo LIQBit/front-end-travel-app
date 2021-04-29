@@ -44,22 +44,29 @@ body {
 }
 
 #form {
+  display:flex;
+  flex-direction: column;
   margin-bottom: 0px;
   input {
     text-align: center;
     font-size: 1.5em;
     font-family: 'Oswald', sans-serif;
-    width: 90%;
+    width: 300px;
     height: 60px;
     border: $background-color 1px;
     border-radius: 30px;
-    margin-left: 18px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 50px;
     }
     #input-date {
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
       font-size: 1.5em;
       padding-left: 50px;
       color: $placeholder-color;
+      border-radius: 30px;
     }
     #date-select {
       background: rgba(255, 255, 255, 0);
@@ -136,7 +143,7 @@ button {
         padding-right: 10px;
         border-radius: 35px;
         width: 100%;
-        height: 375px;
+        height: 475px;
         max-height: 40%;
         outline: none;
         opacity: 0.5;
@@ -155,7 +162,7 @@ button {
         left: 5%;
         padding: 2px;
         line-height: 1.6;
-        font-size: 1.9em;
+        font-size: 2.5em;
       }
       #icon {
         height: 20%;
@@ -180,54 +187,72 @@ button {
   ul {
       list-style-type: none;
   }
-  
+
   #results {
-      position: relative;
-      text-align: left;
-      #pic-text {
-          position: absolute;
-          top: 5%;
-          left: 5%;
-          padding: 2px;
-          line-height: 1.6;
-          font-size: 2.5em;
+    position: relative;
+    text-align: left;
+    #info-holder {
+      margin-top: 180px;
+      ul {
+        list-style-type: none;
       }
-  }
-  
-  #city-pic {
-    margin-top: -130px;
-    margin-bottom: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 35px;
-    width: 100%;
-    height: 480px;
-    max-height: 40%;
-    opacity: 0.5;
-    outline: none;
-  }
-  
-  #flag-pic {
-    margin-bottom: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 35px;
-    width: 100%;
-    height: 375px;
-    max-height: 40%;
-    outline: none;
-    opacity: 0.5;
-  }
-  
-  #flag-text {
-    position: absolute;
-          top: 30%;
-          left: 5%;
-          padding: 2px;
-          line-height: 1.6;
-          font-size: 1.9em;
-  }
-  
+      #city-pic {
+        margin-top: -130px;
+        margin-bottom: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 35px;
+        width: 100%;
+        height: 480px;
+        max-height: 40%;
+        opacity: 0.5;
+        outline: none;
+      }
+      #flag-pic {
+        margin-bottom: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 35px;
+        width: 100%;
+        height: 475px;
+        max-height: 40%;
+        outline: none;
+        opacity: 0.5;
+      }
+      #pic-text {
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        padding: 2px;
+        line-height: 1.6;
+        font-size: 3.5em;
+      }
+      #flag-text {
+        position: absolute;
+        top: 35%;
+        left: 5%;
+        padding: 2px;
+        line-height: 1.6;
+        font-size: 3.5em;
+      }
+      #icon {
+        height: 20%;
+        width: 100%;
+      }
+      #weather-icon {
+        height: 50%;
+        width: 100%;
+        padding-bottom: 40px;
+      }
+      #country-info {
+        font-size: 1.5em;
+        margin-left: 30px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+    }
+}
   
   #condition {
     margin-right: 0px;
@@ -292,8 +317,18 @@ button {
   }
 }
   
-/* media queries - over 700 px */
+/* media queries - large screens */
 @media (min-width: 1100px) {
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+ }
+
+ .card {
+  flex: 0 1 calc(25% - 1em);
+}
   
   // Header
   .headline {
@@ -394,7 +429,7 @@ button {
           left: 10%;
           padding: 2px;
           line-height: 1.8;
-          font-size: 2.4em;
+          font-size: 3em;
         }
         #flag-text {
           position: absolute;
@@ -402,7 +437,7 @@ button {
           left: 55%;
           padding: 2px;
           line-height: 1.8;
-          font-size: 2.4em;
+          font-size: 3em;
         }
         #condition{
           margin-right: 0px;

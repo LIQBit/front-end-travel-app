@@ -26,5 +26,6 @@ In order for the app to function, you will need to obtain API keys from [Geoname
 Base code was the Udacity Front-End Nanodegree Course's "NLP Project".
 
 **Note**
+
 Display on an actual mobile device will vary from the simulation in browser dev-tools. Unfortunately, dev-tool screen simulations are notoriously inaccurate.
 
